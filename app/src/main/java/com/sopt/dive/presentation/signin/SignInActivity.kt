@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
@@ -49,7 +50,9 @@ class SignInActivity : ComponentActivity() {
 
             DiveTheme {
                 Scaffold(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .imePadding()
                 ) { innerPadding ->
 
                     var id by remember { mutableStateOf("") }
@@ -70,7 +73,8 @@ class SignInActivity : ComponentActivity() {
     }
 
     private fun onSignInButtonClick(
-        id: String, password: String
+        id: String,
+        password: String
     ) {
         if (id == userId && password == userPassword && id.isNotEmpty() && password.isNotEmpty()) {
 
