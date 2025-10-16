@@ -1,23 +1,28 @@
 package com.sopt.dive.presentation.signin
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.core.component.button.SoptBasicButton
 import com.sopt.dive.core.component.textfield.SoptBasicTextField
 import com.sopt.dive.core.component.textfield.SoptPasswordTextField
+import com.sopt.dive.core.util.noRippleClickable
 
 
 @Composable
@@ -30,8 +35,6 @@ fun SignInRoute(
     navigateToSignUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-
     SignInScreen(
         id = id,
         password = password,
@@ -41,7 +44,6 @@ fun SignInRoute(
         navigateToSignUp = navigateToSignUp,
         modifier = modifier
     )
-
 }
 @Composable
 fun SignInScreen(
@@ -53,6 +55,7 @@ fun SignInScreen(
     navigateToSignUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val focusManger = LocalFocusManager.current
 
     Column(
         modifier = modifier
@@ -73,7 +76,9 @@ fun SignInScreen(
             title = "ID",
             value = id,
             onValueChange = onIdChange,
-            placeHolder = "아이디를 입력해주세요"
+            placeHolder = "아이디를 입력해주세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions(onNext = { focusManger.moveFocus(FocusDirection.Down) })
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -81,7 +86,9 @@ fun SignInScreen(
         SoptPasswordTextField(
             title = "PW",
             value = password,
-            onValueChange = onPasswordChange
+            onValueChange = onPasswordChange,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManger.clearFocus() })
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -95,7 +102,7 @@ fun SignInScreen(
             text = "회원가입",
             style = MaterialTheme.typography.bodySmall,
             color = Color.LightGray,
-            modifier = Modifier.clickable(onClick = navigateToSignUp)
+            modifier = Modifier.noRippleClickable(onClick = navigateToSignUp)
         )
     }
 }
