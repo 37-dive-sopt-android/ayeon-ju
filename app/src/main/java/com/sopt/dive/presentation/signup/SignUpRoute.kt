@@ -6,12 +6,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.core.component.button.SoptBasicButton
 import com.sopt.dive.core.component.textfield.SoptBasicTextField
@@ -58,11 +63,13 @@ fun SignUpScreen(
     navigateToSignIn: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val focusManger = LocalFocusManager.current
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(horizontal = 24.dp, vertical = 32.dp),
+            .padding(horizontal = 24.dp, vertical = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -75,31 +82,42 @@ fun SignUpScreen(
             title = "ID",
             value = userId,
             onValueChange = onUserIdChange,
-            placeHolder = "아이디를 입력해주세요"
+            placeHolder = "아이디를 입력해주세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions(onNext = { focusManger.moveFocus(FocusDirection.Down) })
         )
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         SoptPasswordTextField(
-            title = "PW", value = userPassword, onValueChange = onUserPasswordChange
+            title = "PW",
+            value = userPassword,
+            onValueChange = onUserPasswordChange,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions(onNext = { focusManger.moveFocus(FocusDirection.Down) })
+
         )
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         SoptBasicTextField(
             title = "NICKNAME",
             value = userNickname,
             onValueChange = onUserNicknameChange,
-            placeHolder = "닉네임을 입력해주세요"
+            placeHolder = "닉네임을 입력해주세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions(onNext = { focusManger.moveFocus(FocusDirection.Down) })
         )
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         SoptBasicTextField(
             title = "주량",
             value = userAlcohol,
             onValueChange = onUserAlcoholChange,
-            placeHolder = "소주 주량을 입력해주세요"
+            placeHolder = "소주 주량을 입력해주세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManger.clearFocus() })
         )
 
         Spacer(modifier = Modifier.weight(1f))

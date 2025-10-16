@@ -1,8 +1,9 @@
 package com.sopt.dive.core.component.textfield
 
-import android.R.attr.contentDescription
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -17,9 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,10 +28,14 @@ import com.sopt.dive.R
 fun SoptPasswordTextField(
     title: String = "PASSWORD",
     value: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    singleLine: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     var isVisible by remember { mutableStateOf(false) }
-    val visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation()
+    val visualTransformation =
+        if (isVisible) VisualTransformation.None else PasswordVisualTransformation()
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -51,16 +54,19 @@ fun SoptPasswordTextField(
                     color = Color.Gray
                 )
             },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor =  Color.Transparent,
+                focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent
             ),
+            singleLine = singleLine,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
             trailingIcon = {
                 IconButton(
-                    onClick = { isVisible = !isVisible }
-                ) {
+                    onClick = { isVisible = !isVisible }) {
                     Icon(
                         imageVector = if (isVisible) {
                             ImageVector.vectorResource(R.drawable.ic_password_visible)

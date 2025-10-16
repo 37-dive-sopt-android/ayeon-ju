@@ -2,6 +2,8 @@ package com.sopt.dive.core.component.textfield
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -18,7 +20,10 @@ fun SoptBasicTextField(
     value: String,
     onValueChange: (String) -> Unit,
     placeHolder: String,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    singleLine: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
 
     Column(
@@ -43,7 +48,10 @@ fun SoptBasicTextField(
                 focusedContainerColor =  Color.Transparent,
                 unfocusedContainerColor = Color.Transparent
             ),
-            visualTransformation = visualTransformation
+            singleLine = singleLine,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            visualTransformation = visualTransformation,
         )
     }
 }
