@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.sopt.dive.data.local.UserLocalDataSource
+import com.sopt.dive.presentation.main.MainActivity.Companion.IS_LOGGED_IN
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ALCOHOL
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ID
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_NICKNAME
@@ -22,10 +24,17 @@ class HomeActivity : ComponentActivity() {
             DiveTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    val userId = intent.getStringExtra(USER_ID).orEmpty()
-                    val userPassword = intent.getStringExtra(USER_PASSWORD).orEmpty()
-                    val userNickname = intent.getStringExtra(USER_NICKNAME).orEmpty()
-                    val userAlcohol = intent.getStringExtra(USER_ALCOHOL).orEmpty()
+                    var userId = intent.getStringExtra(USER_ID).orEmpty()
+                    var userPassword = intent.getStringExtra(USER_PASSWORD).orEmpty()
+                    var userNickname = intent.getStringExtra(USER_NICKNAME).orEmpty()
+                    var userAlcohol = intent.getStringExtra(USER_ALCOHOL).orEmpty()
+
+                    if (intent.getBooleanExtra(IS_LOGGED_IN, true)) {
+                        userId = UserLocalDataSource.getUserId()
+                        userPassword = UserLocalDataSource.getUserPassword()
+                        userNickname = UserLocalDataSource.getUserNickname()
+                        userAlcohol = UserLocalDataSource.getUserAlcohol()
+                    }
 
                     HomeRoute(
                         userId = userId,

@@ -16,7 +16,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.sopt.dive.data.local.UserLocalDataSource
 import com.sopt.dive.presentation.home.HomeActivity
+import com.sopt.dive.presentation.main.MainActivity.Companion.IS_LOGGED_IN
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ALCOHOL
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ID
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_NICKNAME
@@ -47,7 +49,6 @@ class SignInActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             DiveTheme {
                 Scaffold(
                     modifier = Modifier
@@ -83,8 +84,17 @@ class SignInActivity : ComponentActivity() {
                 putExtra(USER_PASSWORD, password)
                 putExtra(USER_NICKNAME, userNickname)
                 putExtra(USER_ALCOHOL, userAlcohol)
+                putExtra(IS_LOGGED_IN, true)
 
             }
+
+            UserLocalDataSource.saveUserInfo(
+                userId = id,
+                userPassword = password,
+                userNickname = userNickname,
+                userAlcohol = userAlcohol,
+                isLoggedIn = true
+            )
 
             Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
             startActivity(intent)

@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.sopt.dive.data.local.UserLocalDataSource
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ALCOHOL
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ID
 import com.sopt.dive.presentation.main.MainActivity.Companion.USER_NICKNAME
@@ -56,7 +57,6 @@ class SignUpActivity : ComponentActivity() {
                         onUserNicknameChange = { userNickname = it },
                         onUserAlcoholChange = { userAlcohol = it },
                         navigateToSignIn = {
-
                             val result =
                                 SignUpValidation.validate(userId, userPassword, userNickname)
                             when (result) {
@@ -68,6 +68,12 @@ class SignUpActivity : ComponentActivity() {
                                         putExtra(USER_ALCOHOL, userAlcohol)
                                     }
 
+                                    UserLocalDataSource.saveUserInfo(
+                                        userId = userId,
+                                        userPassword = userPassword,
+                                        userNickname = userNickname,
+                                        userAlcohol = userAlcohol
+                                    )
                                     Toast.makeText(this, "회원가입 성공", LENGTH_SHORT).show()
                                     setResult(RESULT_OK, intent)
                                     finish()
