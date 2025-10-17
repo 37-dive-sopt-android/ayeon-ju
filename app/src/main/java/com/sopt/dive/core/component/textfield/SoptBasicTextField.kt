@@ -25,7 +25,6 @@ fun SoptBasicTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
-
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
