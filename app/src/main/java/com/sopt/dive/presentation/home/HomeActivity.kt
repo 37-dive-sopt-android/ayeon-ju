@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.sopt.dive.core.util.KeyStorage.IS_LOGGED_IN
+import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
+import com.sopt.dive.core.util.KeyStorage.USER_ID
+import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
+import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
 import com.sopt.dive.data.local.UserLocalDataSource
-import com.sopt.dive.presentation.main.MainActivity.Companion.IS_LOGGED_IN
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ALCOHOL
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ID
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_NICKNAME
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_PASSWORD
 import com.sopt.dive.ui.theme.DiveTheme
 
 class HomeActivity : ComponentActivity() {

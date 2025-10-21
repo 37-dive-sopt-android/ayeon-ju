@@ -69,17 +69,26 @@ fun SignUpScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(horizontal = 24.dp, vertical = 20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 24.dp, vertical = 14.dp)
     ) {
         Text(
-            text = "회원가입", style = MaterialTheme.typography.headlineLarge, color = Color.Black
+            text = "회원가입",
+            style = MaterialTheme.typography.headlineLarge,
+            color = Color.Black,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        Text(
+            text = "ID",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         SoptBasicTextField(
-            title = "ID",
             value = userId,
             onValueChange = onUserIdChange,
             placeHolder = "아이디를 입력해주세요",
@@ -89,8 +98,15 @@ fun SignUpScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        Text(
+            text = "PW",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         SoptPasswordTextField(
-            title = "PW",
             value = userPassword,
             onValueChange = onUserPasswordChange,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -100,8 +116,15 @@ fun SignUpScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        Text(
+            text = "NickName",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         SoptBasicTextField(
-            title = "NICKNAME",
             value = userNickname,
             onValueChange = onUserNicknameChange,
             placeHolder = "닉네임을 입력해주세요",
@@ -111,8 +134,15 @@ fun SignUpScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        Text(
+            text = "주량",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         SoptBasicTextField(
-            title = "주량",
             value = userAlcohol,
             onValueChange = onUserAlcoholChange,
             placeHolder = "소주 주량을 입력해주세요",

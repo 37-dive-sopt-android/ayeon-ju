@@ -2,12 +2,12 @@ package com.sopt.dive.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.sopt.dive.presentation.main.MainActivity.Companion.IS_LOGGED_IN
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ALCOHOL
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ID
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_NICKNAME
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_PASSWORD
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_PREFS
+import com.sopt.dive.core.util.KeyStorage.IS_LOGGED_IN
+import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
+import com.sopt.dive.core.util.KeyStorage.USER_ID
+import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
+import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
+import com.sopt.dive.core.util.KeyStorage.USER_PREFS
 
 object UserLocalDataSource {
 

@@ -61,19 +61,26 @@ fun SignInScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(horizontal = 24.dp, vertical = 42.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 24.dp, vertical = 42.dp)
     ) {
         Text(
             text = "Welcome To SOPT",
             style = MaterialTheme.typography.headlineLarge,
-            color = Color.Black
+            color = Color.Black,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        Text(
+            text = "ID",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         SoptBasicTextField(
-            title = "ID",
             value = id,
             onValueChange = onIdChange,
             placeHolder = "아이디를 입력해주세요",
@@ -83,8 +90,15 @@ fun SignInScreen(
 
         Spacer(modifier = Modifier.height(15.dp))
 
+        Text(
+            text = "Password",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         SoptPasswordTextField(
-            title = "PW",
             value = password,
             onValueChange = onPasswordChange,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
@@ -102,7 +116,9 @@ fun SignInScreen(
             text = "회원가입",
             style = MaterialTheme.typography.bodySmall,
             color = Color.LightGray,
-            modifier = Modifier.noRippleClickable(onClick = navigateToSignUp)
+            modifier = Modifier
+                .noRippleClickable(onClick = navigateToSignUp)
+                .align(Alignment.CenterHorizontally)
         )
     }
 }

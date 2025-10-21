@@ -19,11 +19,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
+import com.sopt.dive.core.util.KeyStorage.USER_ID
+import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
+import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
 import com.sopt.dive.data.local.UserLocalDataSource
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ALCOHOL
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_ID
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_NICKNAME
-import com.sopt.dive.presentation.main.MainActivity.Companion.USER_PASSWORD
 import com.sopt.dive.ui.theme.DiveTheme
 import kotlinx.coroutines.launch
 
@@ -60,7 +60,7 @@ class SignUpActivity : ComponentActivity() {
                             val result =
                                 SignUpValidation.validate(userId, userPassword, userNickname)
                             when (result) {
-                                is SignUpValidationResult.SignUpSuccess -> {
+                                is SignUpValidationResult.Success -> {
                                     val intent = Intent().apply {
                                         putExtra(USER_ID, userId)
                                         putExtra(USER_PASSWORD, userPassword)
@@ -79,7 +79,7 @@ class SignUpActivity : ComponentActivity() {
                                     finish()
                                 }
 
-                                is SignUpValidationResult.InvalidItem -> {
+                                is SignUpValidationResult.Error -> {
                                     scope.launch {
                                         snackBarHostState.showSnackbar(result.message)
                                     }

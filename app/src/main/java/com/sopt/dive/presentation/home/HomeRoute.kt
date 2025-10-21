@@ -131,7 +131,7 @@ fun UserInfo(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview() {
+private fun HomeScreenPreview() {
     DiveTheme {
         HomeScreen(
             userId = "",

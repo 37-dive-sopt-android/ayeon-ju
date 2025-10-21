@@ -26,7 +26,6 @@ import com.sopt.dive.R
 
 @Composable
 fun SoptPasswordTextField(
-    title: String = "PASSWORD",
     value: String,
     onValueChange: (String) -> Unit,
     singleLine: Boolean = true,
@@ -40,11 +39,6 @@ fun SoptPasswordTextField(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyLarge,
-            color = Color.Black
-        )
         TextField(
             value = value,
             onValueChange = onValueChange,

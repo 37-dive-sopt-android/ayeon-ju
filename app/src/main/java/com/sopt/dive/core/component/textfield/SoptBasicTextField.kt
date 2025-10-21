@@ -16,10 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SoptBasicTextField(
-    title: String,
     value: String,
     onValueChange: (String) -> Unit,
     placeHolder: String,
+    modifier: Modifier = Modifier,
     singleLine: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -28,11 +28,6 @@ fun SoptBasicTextField(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyLarge,
-            color = Color.Black
-        )
         TextField(
             value = value,
             onValueChange = onValueChange,
@@ -59,7 +54,6 @@ fun SoptBasicTextField(
 @Composable
 private fun SoptBasicTextFieldPreview() {
     SoptBasicTextField(
-        title = "",
         value = "",
         onValueChange = {},
         placeHolder = ""
