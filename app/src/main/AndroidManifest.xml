@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Dive"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.my.MyPageActivity"
+            android:exported="false"
+            android:label="@string/title_activity_my_page"
+            android:theme="@style/Theme.Dive" />
+        <activity
             android:name=".presentation.home.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
