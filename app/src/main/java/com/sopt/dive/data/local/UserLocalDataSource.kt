@@ -8,17 +8,13 @@ import com.sopt.dive.core.util.KeyStorage.USER_ID
 import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
 import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
 import com.sopt.dive.core.util.KeyStorage.USER_PREFS
+import jakarta.inject.Inject
 
-object UserLocalDataSource {
-
-    private lateinit var userPrefs: SharedPreferences
-
-    fun init(context: Context) {
-        userPrefs = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
-    }
-
+class UserLocalDataSource @Inject constructor(
+    private val sharedPreferences: SharedPreferences
+){
     fun isLoggedIn(): Boolean {
-        return userPrefs.getBoolean(IS_LOGGED_IN, false)
+        return sharedPreferences.getBoolean(IS_LOGGED_IN, false)
     }
 
     fun saveUserInfo(
@@ -28,7 +24,7 @@ object UserLocalDataSource {
         userAlcohol: String,
         isLoggedIn: Boolean = false
     ) {
-        userPrefs.edit().apply {
+        sharedPreferences.edit().apply {
             putString(USER_ID, userId)
             putString(USER_PASSWORD, userPassword)
             putString(USER_NICKNAME, userNickname)
@@ -39,18 +35,18 @@ object UserLocalDataSource {
     }
 
     fun getUserId(): String {
-        return userPrefs.getString(USER_ID, null) ?: ""
+        return sharedPreferences.getString(USER_ID, null) ?: ""
     }
 
     fun getUserPassword(): String {
-        return userPrefs.getString(USER_PASSWORD, null) ?: ""
+        return sharedPreferences.getString(USER_PASSWORD, null) ?: ""
     }
 
     fun getUserNickname(): String {
-        return userPrefs.getString(USER_NICKNAME, null) ?: ""
+        return sharedPreferences.getString(USER_NICKNAME, null) ?: ""
     }
 
     fun getUserAlcohol(): String {
-        return userPrefs.getString(USER_ALCOHOL, null) ?: ""
+        return sharedPreferences.getString(USER_ALCOHOL, null) ?: ""
     }
 }

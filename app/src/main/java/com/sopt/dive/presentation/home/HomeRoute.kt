@@ -3,6 +3,7 @@ package com.sopt.dive.presentation.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,88 +21,31 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.R
+import com.sopt.dive.core.util.KeyStorage.IS_LOGGED_IN
+import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
+import com.sopt.dive.core.util.KeyStorage.USER_ID
+import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
+import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
+import com.sopt.dive.data.local.UserLocalDataSource
 import com.sopt.dive.ui.theme.DiveTheme
 
 
 @Composable
 fun HomeRoute(
-    userId: String,
-    userPassword: String,
-    nickname: String,
-    userAlcohol: String,
-    modifier: Modifier = Modifier
+    paddingValues: PaddingValues
 ) {
+
+
+
     HomeScreen(
-        userId = userId,
-        userPassword = userPassword,
-        nickname = nickname,
-        userAlcohol = userAlcohol,
-        modifier = modifier
+
     )
 }
 @Composable
 fun HomeScreen(
-    userId: String,
-    userPassword: String,
-    nickname: String,
-    userAlcohol: String,
-    modifier: Modifier = Modifier
+
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = Color.White)
-            .padding(horizontal = 24.dp, vertical = 32.dp),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(R.drawable.img_profile),
-                contentDescription = "profile image",
-                modifier = Modifier
-                    .padding(end = 10.dp)
-                    .size(32.dp)
-            )
 
-            Text(
-                text = nickname,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Black,
-            )
-        }
-
-        Text(
-            text = "안녕하세요 ${nickname}입니다.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.Black
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        UserInfo(
-            title = "ID",
-            value = userId
-        )
-
-        UserInfo(
-            title = "PW",
-            value = userPassword
-        )
-
-        UserInfo(
-            title = "NICKNAME",
-            value = nickname
-        )
-
-        UserInfo(
-            title = "주량",
-            value = userAlcohol
-        )
-    }
 }
 
 @Composable
@@ -133,11 +77,6 @@ fun UserInfo(
 @Composable
 private fun HomeScreenPreview() {
     DiveTheme {
-        HomeScreen(
-            userId = "",
-            userPassword = "",
-            nickname = "",
-            userAlcohol = ""
-        )
+
     }
 }

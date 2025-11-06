@@ -3,6 +3,7 @@ package com.sopt.dive.presentation.my
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,37 +14,36 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.dive.R
 import com.sopt.dive.ui.theme.DiveTheme
 
 @Composable
 fun MyPageRoute(
-    userId: String,
-    userPassword: String,
-    nickname: String,
-    userAlcohol: String,
-    modifier: Modifier = Modifier
+    paddingValues: PaddingValues,
+    viewModel: MyPageViewModel = hiltViewModel()
 ) {
+
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     MyPageScreen(
-        userId = userId,
-        userPassword = userPassword,
-        nickname = nickname,
-        userAlcohol = userAlcohol,
-        modifier = modifier
+        uiState = uiState,
+        paddingValues = paddingValues,
+
     )
 }
 @Composable
 fun MyPageScreen(
-    userId: String,
-    userPassword: String,
-    nickname: String,
-    userAlcohol: String,
+    uiState: UserInfoState,
+    paddingValues: PaddingValues,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -67,14 +67,14 @@ fun MyPageScreen(
             )
 
             Text(
-                text = nickname,
+                text = uiState.userId,
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Black,
             )
         }
 
         Text(
-            text = "안녕하세요 ${nickname}입니다.",
+            text = "안녕하세요 ${uiState.userNickname}입니다.",
             style = MaterialTheme.typography.bodyMedium,
             color = Color.Black
         )
@@ -83,30 +83,30 @@ fun MyPageScreen(
 
         UserInfo(
             title = "ID",
-            value = userId
+            value = uiState.userId
         )
 
         UserInfo(
             title = "PW",
-            value = userPassword
+            value = uiState.userPassword
         )
 
         UserInfo(
             title = "NICKNAME",
-            value = nickname
+            value = uiState.userNickname
         )
 
         UserInfo(
             title = "주량",
-            value = userAlcohol
+            value = uiState.userAlcohol
         )
     }
 }
 
 @Composable
 fun UserInfo(
-    title: String,
-    value: String
+    title: String = "",
+    value: String = ""
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -132,11 +132,6 @@ fun UserInfo(
 @Composable
 private fun HomeScreenPreview() {
     DiveTheme {
-        MyPageScreen(
-            userId = "",
-            userPassword = "",
-            nickname = "",
-            userAlcohol = ""
-        )
+
     }
 }
