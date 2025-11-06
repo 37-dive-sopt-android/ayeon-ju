@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".DiveSoptApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,26 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dive"
         tools:targetApi="31">
-        <activity
-            android:name=".presentation.my.MyPageActivity"
-            android:exported="false"
-            android:label="@string/title_activity_my_page"
-            android:theme="@style/Theme.Dive" />
-        <activity
-            android:name=".presentation.home.HomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.Dive" />
-        <activity
-            android:name=".presentation.signin.SignInActivity"
-            android:exported="false"
-            android:label="@string/title_activity_sign_in"
-            android:theme="@style/Theme.Dive" />
-        <activity
-            android:name=".presentation.signup.SignUpActivity"
-            android:exported="false"
-            android:label="@string/title_activity_sign_up"
-            android:theme="@style/Theme.Dive" />
+
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true"
