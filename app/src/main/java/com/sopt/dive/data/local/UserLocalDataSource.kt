@@ -1,7 +1,6 @@
 package com.sopt.dive.data.local
 
 import android.content.SharedPreferences
-import com.sopt.dive.core.util.KeyStorage.IS_LOGGED_IN
 import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
 import com.sopt.dive.core.util.KeyStorage.USER_ID
 import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
@@ -16,14 +15,12 @@ class UserLocalDataSource @Inject constructor(
         userPassword: String,
         userNickname: String,
         userAlcohol: String,
-        isLoggedIn: Boolean = false
     ) {
         sharedPreferences.edit().apply {
             putString(USER_ID, userId)
             putString(USER_PASSWORD, userPassword)
             putString(USER_NICKNAME, userNickname)
             putString(USER_ALCOHOL, userAlcohol)
-            putBoolean(IS_LOGGED_IN, isLoggedIn)
             apply()
         }
     }
