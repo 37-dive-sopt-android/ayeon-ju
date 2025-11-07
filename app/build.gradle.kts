@@ -58,6 +58,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.coil.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
