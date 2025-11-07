@@ -144,8 +144,3 @@ fun SignInScreen(
     }
 }
 
-@Preview
-@Composable
-private fun SignInScreenPreview() {
-
-}

@@ -7,12 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopt.dive.presentation.home.component.ProfileCard
 import com.sopt.dive.presentation.home.model.userProfileList
-import com.sopt.dive.ui.theme.DiveTheme
-
 
 @Composable
 fun HomeRoute(
@@ -45,10 +42,3 @@ fun HomeScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    DiveTheme {
-
-    }
-}

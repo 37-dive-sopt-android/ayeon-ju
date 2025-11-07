@@ -32,8 +32,8 @@ import com.sopt.dive.core.component.textfield.SoptPasswordTextField
 fun SignUpRoute(
     paddingValues: PaddingValues,
     navigateToSignIn: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
