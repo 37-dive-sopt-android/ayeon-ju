@@ -1,26 +1,22 @@
 package com.sopt.dive.presentation.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import com.sopt.dive.data.local.UserLocalDataSource
-import com.sopt.dive.presentation.home.HomeActivity
-import com.sopt.dive.presentation.signin.SignInActivity
+import androidx.activity.compose.setContent
+import com.sopt.dive.ui.theme.DiveTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        UserLocalDataSource.init(this)
-
-        val isLoggedIn = UserLocalDataSource.isLoggedIn()
-
-        val intent = if (isLoggedIn) {
-            Intent(this, HomeActivity::class.java)
-        } else Intent(this, SignInActivity::class.java).apply {
-            Intent.FLAG_ACTIVITY_CLEAR_TASK
+        setContent {
+            DiveTheme {
+                MainScreen()
+            }
         }
-        startActivity(intent)
-        finish()
+
     }
 }
