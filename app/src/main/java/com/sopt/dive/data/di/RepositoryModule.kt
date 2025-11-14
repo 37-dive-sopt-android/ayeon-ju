@@ -1,7 +1,9 @@
 package com.sopt.dive.data.di
 
 import com.sopt.dive.data.repositoryimpl.auth.AuthRepositoryImpl
+import com.sopt.dive.data.repositoryimpl.my.MyPageRepositoryImpl
 import com.sopt.dive.domain.repository.auth.AuthRepository
+import com.sopt.dive.domain.repository.my.MyPageRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,4 +18,10 @@ abstract class RepositoryModule {
     abstract fun bindAuthRepository(
         authRepositoryImpl: AuthRepositoryImpl
     ): AuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMyPageRepository(
+        myPageRepositoryImpl: MyPageRepositoryImpl
+    ): MyPageRepository
 }
