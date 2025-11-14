@@ -5,9 +5,12 @@ import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
 import com.sopt.dive.core.util.KeyStorage.USER_ID
 import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
 import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
+import com.sopt.dive.data.dto.request.auth.SignUpRequestDto
+import com.sopt.dive.data.service.auth.AuthService
 import jakarta.inject.Inject
 
 class UserLocalDataSource @Inject constructor(
+    private val authService: AuthService,
     private val sharedPreferences: SharedPreferences
 ) {
     fun saveUserInfo(
@@ -40,4 +43,6 @@ class UserLocalDataSource @Inject constructor(
     fun getUserAlcohol(): String {
         return sharedPreferences.getString(USER_ALCOHOL, null) ?: ""
     }
+
+    suspend fun postSignUp(request: SignUpRequestDto) = authService.postSignup(request = request)
 }
