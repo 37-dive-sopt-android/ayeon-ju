@@ -1,10 +1,7 @@
 package com.sopt.dive.presentation.signin
 
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.dive.data.local.UserLocalDataSource
-import com.sopt.dive.data.repositoryimpl.auth.AuthRepositoryImpl
 import com.sopt.dive.domain.model.auth.SignInRequestModel
 import com.sopt.dive.domain.repository.auth.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,10 +17,10 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val authRepository: AuthRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SignInState())
-    val uiState : StateFlow<SignInState> = _uiState.asStateFlow()
+    val uiState: StateFlow<SignInState> = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<SignInSideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
