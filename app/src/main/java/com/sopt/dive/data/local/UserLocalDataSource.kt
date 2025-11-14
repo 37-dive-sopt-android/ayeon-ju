@@ -1,48 +1,33 @@
 package com.sopt.dive.data.local
 
 import android.content.SharedPreferences
-import com.sopt.dive.core.util.KeyStorage.USER_ALCOHOL
 import com.sopt.dive.core.util.KeyStorage.USER_ID
-import com.sopt.dive.core.util.KeyStorage.USER_NICKNAME
-import com.sopt.dive.core.util.KeyStorage.USER_PASSWORD
+import com.sopt.dive.data.dto.request.auth.SignInRequestDto
 import com.sopt.dive.data.dto.request.auth.SignUpRequestDto
 import com.sopt.dive.data.service.auth.AuthService
+import com.sopt.dive.data.service.my.MyPageService
 import jakarta.inject.Inject
 
 class UserLocalDataSource @Inject constructor(
     private val authService: AuthService,
+    private val myPageService: MyPageService,
     private val sharedPreferences: SharedPreferences
 ) {
-    fun saveUserInfo(
-        userId: String,
-        userPassword: String,
-        userNickname: String,
-        userAlcohol: String,
-    ) {
+
+    fun getUserId(): Long {
+        return sharedPreferences.getLong(USER_ID, 0L)
+    }
+
+    suspend fun postSignUp(request: SignUpRequestDto) = authService.postSignup(request = request)
+
+    fun setUserId(id: Long) {
         sharedPreferences.edit().apply {
-            putString(USER_ID, userId)
-            putString(USER_PASSWORD, userPassword)
-            putString(USER_NICKNAME, userNickname)
-            putString(USER_ALCOHOL, userAlcohol)
+            putLong(USER_ID, id)
             apply()
         }
     }
 
-    fun getUserId(): String {
-        return sharedPreferences.getString(USER_ID, null) ?: ""
-    }
+    suspend fun postSignIn(request: SignInRequestDto) = authService.postSignIn(request = request)
 
-    fun getUserPassword(): String {
-        return sharedPreferences.getString(USER_PASSWORD, null) ?: ""
-    }
-
-    fun getUserNickname(): String {
-        return sharedPreferences.getString(USER_NICKNAME, null) ?: ""
-    }
-
-    fun getUserAlcohol(): String {
-        return sharedPreferences.getString(USER_ALCOHOL, null) ?: ""
-    }
-
-    suspend fun postSignUp(request: SignUpRequestDto) = authService.postSignup(request = request)
+    suspend fun getUserInfo(id: Long) = myPageService.getUserInfo(id)
 }
