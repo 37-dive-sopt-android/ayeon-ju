@@ -18,6 +18,11 @@ ksp = "2.0.21-1.0.27"
 runtime = "1.9.4"
 coil = "2.7.0"
 
+# Network
+okhttp = "4.11.0"
+retrofit = "2.11.0"
+retrofitKotlinSerializationConverter = "1.0.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +48,13 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
+# Network
+okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinSerializationConverter" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -55,4 +67,14 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = [
     "hilt-android",
     "androidx-hilt-navigation-compose"
+]
+
+okhttp = [
+    "okhttp",
+    "okhttp-logging-interceptor"
+]
+
+retrofit = [
+    "retrofit",
+    "retrofit-kotlin-serialization-converter"
 ]

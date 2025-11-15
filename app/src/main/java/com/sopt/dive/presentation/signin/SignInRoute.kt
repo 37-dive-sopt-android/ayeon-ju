@@ -1,6 +1,5 @@
 package com.sopt.dive.presentation.signin
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,15 +24,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.dive.core.component.button.SoptBasicButton
 import com.sopt.dive.core.component.textfield.SoptBasicTextField
 import com.sopt.dive.core.component.textfield.SoptPasswordTextField
+import com.sopt.dive.core.designsystem.LocalAppSnackbarHostState
 import com.sopt.dive.core.util.noRippleClickable
-import com.sopt.dive.data.local.UserLocalDataSource
-
 
 @Composable
 fun SignInRoute(
@@ -42,24 +41,37 @@ fun SignInRoute(
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val showSnackBar = LocalAppSnackbarHostState.current
 
-    val savedId = viewModel.getUserId()
-    val savedPassword = viewModel.getUserPassword()
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                SignInSideEffect.Success -> navigateToHome()
+                is SignInSideEffect.ShowErrorMessage -> showSnackBar(effect.message)
+            }
+        }
+    }
 
     SignInScreen(
-        savedId = savedId,
-        savedPassword = savedPassword,
+        uiState = uiState,
         paddingValues = paddingValues,
+        onUsernameChange = viewModel::onUsernameChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onSignInClick = { viewModel.onSignInClick() },
         navigateToHome = navigateToHome,
         navigateToSignUp = navigateToSignUp,
         modifier = modifier
     )
 }
+
 @Composable
 fun SignInScreen(
-    savedId: String,
-    savedPassword: String,
+    uiState: SignInState,
     paddingValues: PaddingValues,
+    onUsernameChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onSignInClick: () -> Unit,
     navigateToHome: () -> Unit,
     navigateToSignUp: () -> Unit,
     modifier: Modifier = Modifier
@@ -67,7 +79,7 @@ fun SignInScreen(
     val focusManger = LocalFocusManager.current
     val context = LocalContext.current
 
-    var id by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
@@ -87,7 +99,7 @@ fun SignInScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "ID",
+            text = "USERNAME",
             style = MaterialTheme.typography.bodyLarge,
             color = Color.Black
         )
@@ -95,9 +107,9 @@ fun SignInScreen(
         Spacer(modifier = Modifier.height(10.dp))
 
         SoptBasicTextField(
-            value = id,
-            onValueChange = { id = it },
-            placeHolder = "아이디를 입력해주세요",
+            value = uiState.username,
+            onValueChange = onUsernameChange,
+            placeHolder = "username을 입력해주세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(onNext = { focusManger.moveFocus(FocusDirection.Down) })
         )
@@ -113,8 +125,8 @@ fun SignInScreen(
         Spacer(modifier = Modifier.height(10.dp))
 
         SoptPasswordTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = uiState.password,
+            onValueChange = onPasswordChange,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { focusManger.clearFocus() })
         )
@@ -122,14 +134,7 @@ fun SignInScreen(
         Spacer(modifier = Modifier.weight(1f))
 
         SoptBasicButton(
-            onClick = {
-                if (id == savedId && password == savedPassword && id.isNotEmpty()) {
-                    Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
-                    navigateToHome()
-                } else {
-                    Toast.makeText(context, "아이디 또는 비밀번호가 잘못되었습니다", Toast.LENGTH_SHORT).show()
-                }
-            },
+            onClick = onSignInClick,
             text = "로그인 하기"
         )
 
