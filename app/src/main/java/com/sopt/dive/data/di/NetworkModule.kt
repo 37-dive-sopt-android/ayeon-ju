@@ -2,6 +2,8 @@ package com.sopt.dive.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.dive.BuildConfig
+import com.sopt.dive.core.network.qualifier.MainRetrofit
+import com.sopt.dive.core.network.qualifier.OpenRetrofit
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +20,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -28,7 +34,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesConverterFactory(): Converter.Factory = Json.asConverterFactory(
+    fun providesConverterFactory(): Converter.Factory = json.asConverterFactory(
         "application/json".toMediaType()
     )
 
@@ -44,12 +50,26 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(
+    @MainRetrofit
+    fun providesMainRetrofit(
         client: OkHttpClient,
         converterFactory: Converter.Factory
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
+            .client(client)
+            .addConverterFactory(converterFactory)
+            .build()
+
+    @Provides
+    @Singleton
+    @OpenRetrofit
+    fun providesOpenRetrofit(
+        client: OkHttpClient,
+        converterFactory: Converter.Factory
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.OPEN_BASE_URL)
             .client(client)
             .addConverterFactory(converterFactory)
             .build()
