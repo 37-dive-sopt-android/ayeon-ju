@@ -22,6 +22,7 @@ class SignInViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(SignInState())
     val uiState: StateFlow<SignInState> = _uiState.asStateFlow()
 
+    // SharedFlow로 사이드 이펙트 상태 관리
     private val _sideEffect = MutableSharedFlow<SignInSideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
 
