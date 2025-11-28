@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sopt.dive.R
+import com.sopt.dive.core.designsystem.LocalAppSnackbarHostState
 import com.sopt.dive.ui.theme.DiveTheme
 
 @Composable
@@ -33,7 +35,16 @@ fun MyPageRoute(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val showSnackBar = LocalAppSnackbarHostState.current
 
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when(effect) {
+                UserInfoSideEffect.Success -> ""
+                is UserInfoSideEffect.ShowErrorMessage -> showSnackBar(effect.message)
+            }
+        }
+    }
     MyPageScreen(
         uiState = uiState,
         paddingValues = paddingValues,
@@ -67,14 +78,14 @@ fun MyPageScreen(
             )
 
             Text(
-                text = uiState.userId,
+                text = uiState.userInfo?.username ?: "",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Black,
             )
         }
 
         Text(
-            text = "안녕하세요 ${uiState.userNickname}입니다.",
+            text = "안녕하세요 ${uiState.userInfo?.username}입니다.",
             style = MaterialTheme.typography.bodyMedium,
             color = Color.Black
         )
@@ -82,29 +93,29 @@ fun MyPageScreen(
         Spacer(modifier = Modifier.height(30.dp))
 
         UserInfo(
-            title = "ID",
-            value = uiState.userId
+            title = "username",
+            value = uiState.userInfo?.username ?: ""
         )
 
         UserInfo(
-            title = "PW",
-            value = uiState.userPassword
+            title = "email",
+            value = uiState.userInfo?.email ?: ""
         )
 
         UserInfo(
-            title = "NICKNAME",
-            value = uiState.userNickname
+            title = "age",
+            value = uiState.userInfo?.email ?: ""
         )
 
         UserInfo(
-            title = "주량",
-            value = uiState.userAlcohol
+            title = "name",
+            value = uiState.userInfo?.name ?: ""
         )
     }
 }
 
 @Composable
-fun UserInfo(
+private fun UserInfo(
     title: String = "",
     value: String = ""
 ) {
@@ -125,13 +136,5 @@ fun UserInfo(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    DiveTheme {
-
     }
 }

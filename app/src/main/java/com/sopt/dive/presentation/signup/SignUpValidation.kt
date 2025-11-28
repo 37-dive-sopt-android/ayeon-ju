@@ -6,8 +6,8 @@ sealed interface SignUpValidationResult {
     sealed interface Error: SignUpValidationResult {
         val message: String
 
-        data object InvalidUserId : Error {
-            override val message = "아이디를 6~10글자로 입력해 주세요."
+        data object InvalidUsername : Error {
+            override val message = "닉네임은 최대 50글자로 입력해 주세요."
         }
 
         data object InvalidUserPassword : Error {
@@ -17,18 +17,24 @@ sealed interface SignUpValidationResult {
         data object InvalidUserNickname : Error {
             override val message = "닉네임은 공백 없이 입력해주세요."
         }
+
+        data object InvalidEmail : Error {
+            override val message = "이메일은 공백 없이 입력해주세요."
+        }
     }
 }
 object SignUpValidation {
     fun validate(
-        userId: String,
+        username: String,
         userPassword: String,
-        userNickname: String
+        name: String,
+        email: String
     ): SignUpValidationResult {
         return when {
-            userId.length !in 6..10 -> SignUpValidationResult.Error.InvalidUserId
-            userPassword.length !in 8..12 -> SignUpValidationResult.Error.InvalidUserPassword
-            userNickname.isBlank() -> SignUpValidationResult.Error.InvalidUserNickname
+            username.length !in 6..50 -> SignUpValidationResult.Error.InvalidUsername
+            userPassword.length !in 8..64 -> SignUpValidationResult.Error.InvalidUserPassword
+            name.isBlank() -> SignUpValidationResult.Error.InvalidUserNickname
+            email.isBlank() -> SignUpValidationResult.Error.InvalidEmail
             else -> SignUpValidationResult.Success
         }
     }

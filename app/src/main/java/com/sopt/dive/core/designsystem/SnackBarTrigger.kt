@@ -1,9 +1,8 @@
 package com.sopt.dive.core.designsystem
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.staticCompositionLocalOf
 
 val LocalAppSnackbarHostState =
-    staticCompositionLocalOf<SnackbarHostState> {
+    staticCompositionLocalOf<(String) -> Unit> {
         error("No SnackBar provided")
     }

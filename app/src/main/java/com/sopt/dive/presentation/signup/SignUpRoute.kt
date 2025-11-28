@@ -46,11 +46,12 @@ fun SignUpRoute(
     SignUpScreen(
         uiState = uiState,
         paddingValues = paddingValues,
-        onUserIdChange = {viewModel.onIdChange(it)},
-        onUserPasswordChange = {viewModel.onPasswordChange(it)},
-        onUserNicknameChange = {viewModel.onNicknameChange(it)},
-        onUserAlcoholChange = { viewModel.onAlcoholChange(it)},
-        onSignUpClick = { viewModel.onSignUpClick(uiState.id, uiState.password, uiState.nickname, uiState.alcohol) },
+        onUserNameChange = { viewModel.onUserNameChange(it) },
+        onUserPasswordChange = { viewModel.onPasswordChange(it) },
+        onUserNicknameChange = { viewModel.onNicknameChange(it) },
+        onUserEmailChange = { viewModel.onEmailChange(it) },
+        onUserAgeChange = { viewModel.onUserAgeChange(it) },
+        onSignUpClick = { viewModel.onSignUpClick(uiState.username, uiState.password, uiState.name, uiState.email, uiState.age) },
         modifier = modifier
     )
 }
@@ -59,10 +60,11 @@ fun SignUpRoute(
 fun SignUpScreen(
     uiState: SignUpState,
     paddingValues: PaddingValues,
-    onUserIdChange: (String) -> Unit,
+    onUserNameChange: (String) -> Unit,
     onUserPasswordChange: (String) -> Unit,
     onUserNicknameChange: (String) -> Unit,
-    onUserAlcoholChange: (String) -> Unit,
+    onUserEmailChange: (String) -> Unit,
+    onUserAgeChange: (String) -> Unit,
     onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -85,7 +87,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "ID",
+            text = "Username",
             style = MaterialTheme.typography.bodyLarge,
             color = Color.Black
         )
@@ -93,9 +95,9 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         SoptBasicTextField(
-            value = uiState.id,
-            onValueChange = onUserIdChange,
-            placeHolder = "아이디를 입력해주세요",
+            value = uiState.username,
+            onValueChange = onUserNameChange,
+            placeHolder = "유저네임을 입력해주세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(onNext = { focusManger.moveFocus(FocusDirection.Down) })
         )
@@ -121,7 +123,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "NickName",
+            text = "Name",
             style = MaterialTheme.typography.bodyLarge,
             color = Color.Black
         )
@@ -129,7 +131,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         SoptBasicTextField(
-            value = uiState.nickname,
+            value = uiState.name,
             onValueChange = onUserNicknameChange,
             placeHolder = "닉네임을 입력해주세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -139,7 +141,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "주량",
+            text = "Email",
             style = MaterialTheme.typography.bodyLarge,
             color = Color.Black
         )
@@ -147,9 +149,27 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         SoptBasicTextField(
-            value = uiState.alcohol,
-            onValueChange = onUserAlcoholChange,
-            placeHolder = "소주 주량을 입력해주세요",
+            value = uiState.email,
+            onValueChange = onUserEmailChange,
+            placeHolder = "이메일을 입력해주세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManger.clearFocus() })
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Text(
+            text = "Age",
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SoptBasicTextField(
+            value = uiState.age,
+            onValueChange = onUserAgeChange,
+            placeHolder = "나이를 입력해주세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { focusManger.clearFocus() })
         )
