@@ -17,6 +17,7 @@ class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
+    // asStateFlow 로 상태 관리
     private val _uiState = MutableStateFlow(SignUpState())
     val uiState: StateFlow<SignUpState> = _uiState.asStateFlow()
 
@@ -41,6 +42,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onSignUpClick(username: String, password: String, name: String, email: String, age: String) {
+        // 회원가입 : viewModelScope 활용
         viewModelScope.launch {
             when (val result = SignUpValidation.validate(username, password, name, email)) {
                 is SignUpValidationResult.Success -> {
